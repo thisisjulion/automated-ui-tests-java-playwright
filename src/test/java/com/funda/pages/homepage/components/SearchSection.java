@@ -18,6 +18,7 @@ public class SearchSection {
     private final Locator newlyBuiltButton;
     private final Locator recreationButton;
     private final Locator europeButton;
+    private final Locator locationSuggestion;
 
     public SearchSection(Page page) {
         this.page = page;
@@ -30,5 +31,10 @@ public class SearchSection {
         newlyBuiltButton = page.getByRole(AriaRole.BUTTON, name("Nieuwbouw"));
         recreationButton = page.getByRole(AriaRole.BUTTON, name("Recreatie"));
         europeButton = page.getByRole(AriaRole.BUTTON, name("Europa"));
+        locationSuggestion = page.getByTestId("SearchBox-location-suggestion");
+    }
+
+    public void selectFirstLocationSuggestion() {
+        locationSuggestion.first().click();
     }
 }
