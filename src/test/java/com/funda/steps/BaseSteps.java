@@ -2,6 +2,7 @@ package com.funda.steps;
 
 import com.funda.components.CookiesPopUp;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.LoadState;
 
 import static com.funda.Constants.HOME_PAGE;
 
@@ -16,6 +17,7 @@ public class BaseSteps {
     public void navigateToHomePageAndAcceptCookies() {
         navigateToHomePage();
         acceptCookies();
+        page.waitForLoadState(LoadState.LOAD);
     }
 
     public void navigateToHomePage() {
@@ -25,5 +27,13 @@ public class BaseSteps {
     public void acceptCookies() {
         CookiesPopUp cookiesPopUp = new CookiesPopUp(page);
         cookiesPopUp.acceptCookies();
+    }
+
+    public void zoomIn() {
+        page.mouse().wheel(0, -500);
+    }
+
+    public void zoomOut() {
+        page.mouse().wheel(0, 500);
     }
 }
