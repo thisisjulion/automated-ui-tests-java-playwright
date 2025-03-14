@@ -21,7 +21,7 @@ public class HomePageTests extends BaseTest {
 
         //Step 2
         homePageSteps = new HomePageSteps(page);
-        homePageSteps.navigateAndAcceptCookies();
+        homePageSteps.navigateToHomePageAndAcceptCookies();
 
         //Step 3
         homePageSteps.verifyThatHeaderElementsAreDisplayed();

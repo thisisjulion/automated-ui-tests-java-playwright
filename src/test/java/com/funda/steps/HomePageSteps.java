@@ -1,35 +1,14 @@
 package com.funda.steps;
 
-import com.funda.components.CookiesPopUp;
 import com.funda.pages.homepage.HomePage;
 import com.microsoft.playwright.Page;
 
-
-import static com.funda.Constants.HOME_PAGE;
-
-public class HomePageSteps {
-    private final Page page;
+public class HomePageSteps extends BaseSteps {
     private final HomePage homePage;
 
-    private final VerificationSteps verification = new VerificationSteps();
-
     public HomePageSteps(Page page) {
-        this.page = page;
+        super(page);
         homePage = new HomePage(page);
-    }
-
-    public void navigateAndAcceptCookies() {
-        navigateToHomePage();
-        acceptCookies();
-    }
-
-    public void navigateToHomePage() {
-        page.navigate(HOME_PAGE.getUrl());
-    }
-
-    public void acceptCookies() {
-        CookiesPopUp cookiesPopUp = new CookiesPopUp(page);
-        cookiesPopUp.acceptCookies();
     }
 
     public void verifyThatHeaderElementsAreDisplayed() {

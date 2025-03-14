@@ -21,4 +21,13 @@ public class HomePage {
         findAnNvmAgentButton = page.locator("css=a[href*='/makelaar-zoeken'] span");
         findCommercialPropertyButton = page.locator("css=a[href='https://www.fundainbusiness.nl']");
     }
+
+    public void searchFor(String value) {
+        searchSection.getSearchBar().click();
+        searchSection.getSearchBar().fill(value);
+    }
+
+    public void selectFirstSearchSuggestion() {
+        searchSection.selectFirstLocationSuggestion();
+    }
 }
