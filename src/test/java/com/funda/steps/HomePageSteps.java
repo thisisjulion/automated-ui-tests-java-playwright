@@ -35,6 +35,8 @@ public class HomePageSteps extends BaseSteps {
 
     public void verifyThatCenterSectionButtonsAreDisplayed() {
         verification.verifyThatElementIsVisible(homePage.getFindAnNvmAgentButton());
+        verification.verifyThatElementIsEnabled(homePage.getFindAnNvmAgentButton());
         verification.verifyThatElementIsVisible(homePage.getFindCommercialPropertyButton());
+        verification.verifyThatElementIsEnabled(homePage.getFindCommercialPropertyButton());
     }
 }

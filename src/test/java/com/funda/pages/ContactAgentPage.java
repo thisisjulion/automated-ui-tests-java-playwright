@@ -12,6 +12,9 @@ public class ContactAgentPage {
     private final Page page;
     private final Locator questionInput;
     private final Locator viewingRequestCheckbox;
+    private final Locator viewingDetailsForm;
+    private final Locator mondayOption;
+    private final Locator morningOption;
     private final Locator emailInput;
     private final Locator firstNameInput;
     private final Locator lastNameInput;
@@ -26,6 +29,9 @@ public class ContactAgentPage {
         firstNameInput = page.locator("#firstName");
         lastNameInput = page.locator("#lastName");
         phoneNumberInput = page.locator("#phoneNumber");
-        submitButton = page.getByRole(AriaRole.BUTTON, name("Verstuur bericht"));
+        submitButton = page.getByRole(AriaRole.BUTTON, name("Verstuur bericht")); //better to remove this locale dependency
+        viewingDetailsForm = page.locator("css=div[class='mt-4 md:ml-7 lg:mr-44']");
+        mondayOption = page.locator("xpath=//input[@id='checkbox-Ma']/parent::div/parent::div"); //better to remove this day/locale dependency
+        morningOption = page.locator("xpath=//input[contains(@id,'s morgens')]/parent::div/parent::div"); //better to remove this day/locale dependency
     }
 }

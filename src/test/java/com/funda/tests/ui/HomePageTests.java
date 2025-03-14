@@ -11,22 +11,22 @@ import static com.funda.Constants.HOME_PAGE;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 public class HomePageTests extends BaseTest {
-    private HomePageSteps homePageSteps;
+    private HomePageSteps steps;
 
     @Tag("smoke")
     @Test
     void homePageLoadsSuccessfully() {
-        //Step 1
+        //Step 1 - verify that funda.nl returns 200 OK
         verifyThatHomePageUrlReturns200oK();
 
-        //Step 2
-        homePageSteps = new HomePageSteps(page);
-        homePageSteps.navigateToHomePageAndAcceptCookies();
+        //Step 2 - - open home page
+        steps = new HomePageSteps(page);
+        steps.navigateToHomePageAndAcceptCookies();
 
-        //Step 3
-        homePageSteps.verifyThatHeaderElementsAreDisplayed();
-        homePageSteps.verifyThatSearchSectionIsDisplayed();
-        homePageSteps.verifyThatCenterSectionButtonsAreDisplayed();
+        //Step 3 - verify main elements on Home Page
+        steps.verifyThatHeaderElementsAreDisplayed();
+        steps.verifyThatSearchSectionIsDisplayed();
+        steps.verifyThatCenterSectionButtonsAreDisplayed();
     }
 
     private void verifyThatHomePageUrlReturns200oK() {

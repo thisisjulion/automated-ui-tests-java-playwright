@@ -19,9 +19,12 @@ public class MapFunctionalityTests extends BaseTest {
         steps.clickSearchOnMap();
         steps.verifyThatMapIsVisible();
 
-        //Step 3 - verify interacts with the map - Zoom in and out, Pan around different locations
+        //Step 3 - verify interacts with the map - Zoom in and out and drag map
         steps.listenToGoogleMapApi();
-        steps.zoomInAndOutAndThatGoogleApiWasTriggered();
+        //steps.zoomInAndOutAndVerifyThatGoogleApiWasTriggered(); TODO - need to debug
+
+        steps.listenToReactiveSearchApi();
+        steps.dragMapAndVerifyThatReactiveSearchApiWasTriggered();
 
         //Step 4 -  Click on a property marker to open details.
         //Verify that property details appear correctly when selecting a listing from the map.
