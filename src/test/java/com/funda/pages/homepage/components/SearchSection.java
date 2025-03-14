@@ -23,8 +23,7 @@ public class SearchSection {
     public SearchSection(Page page) {
         this.page = page;
         searchBar = page.getByTestId("search-box");
-        submitSearchButton = page.getByLabel("SearchBox submit button",
-                new Page.GetByLabelOptions().setExact(true));
+        submitSearchButton = page.locator("xpath=//*[@aria-label='SearchBox submit button']/parent::button");
         searchOnMapLink = page.locator("css=a[href*='zoeken/kaart']");
         buyButton = page.getByRole(AriaRole.BUTTON, name("Koop"));
         rentButton = page.getByRole(AriaRole.BUTTON, name("Huur"));

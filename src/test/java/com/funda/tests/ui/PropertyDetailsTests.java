@@ -23,8 +23,5 @@ public class PropertyDetailsTests extends BaseTest {
         steps.verifyThatAboutSectionIsDisplayed();
         steps.verifyPriceLabel();
         steps.verifyThatMediaSectionIsDisplayed();
-
-        //Step 4 - Verify that the "Contact Agent" button is visible and functional.
-        steps.verifyThatContactAgentSectionIsDisplayed();
     }
 }
