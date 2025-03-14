@@ -23,5 +23,6 @@ public class PropertyDetailsTests extends BaseTest {
         steps.verifyThatAboutSectionIsDisplayed();
         steps.verifyPriceLabel();
         steps.verifyThatMediaSectionIsDisplayed();
+        steps.verifyThatContactAgentSectionIsDisplayed();
     }
 }

@@ -1,6 +1,5 @@
-package com.funda.pages;
+package com.funda.pages.propertypage;
 
-import com.funda.pages.homepage.MediaContainer;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
@@ -16,6 +15,7 @@ public class PropertyPage {
     private final Locator aboutSection;
     private final Locator price;
     private final Locator description;
+    private final Locator agentTitle;
     private final Locator contactAgentButton;
     private final Locator requestViewingButton;
     private final Locator showPhoneNumber;
@@ -33,8 +33,9 @@ public class PropertyPage {
         contactAgentButton = page.getByRole(AriaRole.LINK, name("Neem contact op")).first(); //remove locale dependency from locator
         requestViewingButton = page.getByRole(AriaRole.LINK, name("Vraag bezichtiging aan")).first();
         showPhoneNumber = page.getByRole(AriaRole.BUTTON, name("Toon telefoonnummer")).first();
-        phoneNumber = page.locator("css=button[href*='tel:0']");
+        phoneNumber = page.locator("css=button[href*='tel:']");
         featuresSection = page.locator("#features");
         mapIcon = page.getByTitle("Kaart icon");
+        agentTitle = page.locator("css=h3 a[href*='https://www.funda.nl/makelaars/']");
     }
 }

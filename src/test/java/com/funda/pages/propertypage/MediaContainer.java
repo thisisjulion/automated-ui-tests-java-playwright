@@ -1,4 +1,4 @@
-package com.funda.pages.homepage;
+package com.funda.pages.propertypage;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
