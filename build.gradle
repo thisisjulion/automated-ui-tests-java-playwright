@@ -13,6 +13,7 @@ repositories {
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly "org.junit.platform:junit-platform-suite-engine"
     implementation 'com.microsoft.playwright:playwright:1.44.0'
     testImplementation "org.junit.platform:junit-platform-suite-api"
     testImplementation "net.datafaker:datafaker:2.4.2"

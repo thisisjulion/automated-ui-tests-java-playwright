@@ -4,9 +4,12 @@ import com.funda.pages.ContactAgentPage;
 import com.funda.pages.propertypage.PropertyPage;
 import com.funda.pages.SearchResultsPage;
 import com.funda.pages.homepage.HomePage;
+import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.LoadState;
 import static com.funda.utilities.DataGenerator.*;
+import static com.funda.utilities.PlaywrightUtility.getVisibleOption;
+import static com.microsoft.playwright.options.WaitForSelectorState.VISIBLE;
 
 public class ContactFormSteps extends BaseSteps {
     private final HomePage homePage;
@@ -24,7 +27,7 @@ public class ContactFormSteps extends BaseSteps {
 
     public void navigateToFirstListing() {
         homePage.getSearchSection().getSubmitSearchButton().click();
-        searchResultsPage.getFirstListing().click();
+        searchResultsPage.getListing().first().click();
     }
 
     public void openContactForm() {
@@ -44,7 +47,7 @@ public class ContactFormSteps extends BaseSteps {
 
     public void selectRequestViewing() {
         contactAgentPage.getViewingRequestCheckbox().click();
-        contactAgentPage.getPage().waitForLoadState(LoadState.LOAD);
+        contactAgentPage.getMondayOption().waitFor(getVisibleOption());
         contactAgentPage.getMondayOption().click();
         contactAgentPage.getMorningOption().click();
     }
@@ -52,5 +55,4 @@ public class ContactFormSteps extends BaseSteps {
     public void verifySuccessfulMessage() {
         //code to verify actual successful message after submitting form
     }
-
 }

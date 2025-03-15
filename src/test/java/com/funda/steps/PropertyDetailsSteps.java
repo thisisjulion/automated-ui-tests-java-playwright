@@ -4,9 +4,12 @@ import com.funda.pages.propertypage.PropertyPage;
 import com.funda.pages.SearchResultsPage;
 import com.funda.pages.homepage.HomePage;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.LoadState;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.regex.Pattern;
+
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 public class PropertyDetailsSteps extends BaseSteps {
     private final HomePage homePage;
@@ -20,13 +23,31 @@ public class PropertyDetailsSteps extends BaseSteps {
         propertyPage = new PropertyPage(page);
     }
 
-    public void searchAndSelectFirstSuggestion(String value) {
+    public void searchBy(String value) {
         homePage.searchFor(value);
         homePage.selectFirstSearchSuggestion();
+        searchResultsPage.getPage().waitForLoadState(LoadState.LOAD);
     }
 
-    public void selectFirstTopPositionListing() {
-        searchResultsPage.getTopPositionListing().first().click();
+    public void verifySearchPageHeader(String expectedCity) {
+        verification.verifyThatElementIsVisible(searchResultsPage.getPageHeader());
+        assertThat(searchResultsPage.getPageHeader()).containsText(expectedCity);
+    }
+
+    public void verifyThatFilterPanelIsDisplayed() {
+        verification.verifyThatElementIsVisible(searchResultsPage.getFilterPanel());
+    }
+
+    public void verifyThatListingsAreDisplayed() {
+        searchResultsPage.getListing().all().forEach(verification::verifyThatElementIsVisible);
+    }
+
+    public void verifyThatTopListingsAreDisplayed() {
+        searchResultsPage.getTopPositionListing().all().forEach(verification::verifyThatElementIsVisible);
+    }
+
+    public void selectFirstListing() {
+        searchResultsPage.getListing().first().click();
     }
 
     public void verifyThatAboutSectionIsDisplayed() {

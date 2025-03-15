@@ -8,13 +8,15 @@ import lombok.Getter;
 public class SearchResultsPage {
     private final Page page;
     private final Locator topPositionListing;
-    private final Locator firstListing;
+    private final Locator listing;
     private final Locator filterPanel;
+    private final Locator pageHeader;
 
     public SearchResultsPage(Page page) {
         this.page = page;
         topPositionListing = page.getByTestId("top-position-listing");
-        firstListing = page.locator("css=div[class*='flex-col gap-3 mt-4'] a[href*='/detail/koop']").first();
-        filterPanel = page.locator("#FilterPanel");
+        listing = page.getByTestId("listingDetailsAddress");
+        filterPanel = page.locator("css=div[id='FilterPanel']");
+        pageHeader = page.getByTestId("pageHeader");
     }
 }
