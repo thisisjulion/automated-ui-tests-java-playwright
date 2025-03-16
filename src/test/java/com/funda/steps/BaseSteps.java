@@ -1,6 +1,6 @@
 package com.funda.steps;
 
-import com.funda.components.CookiesPopUp;
+import com.funda.pages.components.CookiesPopUp;
 import com.funda.config.Configuration;
 import com.microsoft.playwright.Mouse;
 import com.microsoft.playwright.Page;

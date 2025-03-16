@@ -1,6 +1,5 @@
 package com.funda.utils;
 
-import com.funda.enums.DutchCity;
 import java.util.Random;
 import lombok.AllArgsConstructor;
 import net.datafaker.Faker;

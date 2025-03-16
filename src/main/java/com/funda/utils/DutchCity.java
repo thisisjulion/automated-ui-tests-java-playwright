@@ -1,4 +1,4 @@
-package com.funda.enums;
+package com.funda.utils;
 
 import lombok.Getter;
 

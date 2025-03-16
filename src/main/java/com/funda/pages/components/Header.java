@@ -1,4 +1,4 @@
-package com.funda.components;
+package com.funda.pages.components;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
