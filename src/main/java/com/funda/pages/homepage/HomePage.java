@@ -1,6 +1,6 @@
 package com.funda.pages.homepage;
 
-import com.funda.components.Header;
+import com.funda.pages.components.Header;
 import com.funda.pages.homepage.components.SearchSection;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
