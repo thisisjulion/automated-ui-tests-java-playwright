@@ -2,52 +2,42 @@ package com.funda.steps;
 
 import com.funda.pages.ContactAgentPage;
 import com.funda.pages.propertypage.PropertyPage;
-import com.funda.pages.SearchResultsPage;
-import com.funda.pages.homepage.HomePage;
-import com.microsoft.playwright.Locator;
+import com.funda.utils.DataGenerator;
 import com.microsoft.playwright.Page;
-import com.microsoft.playwright.options.LoadState;
-import static com.funda.utilities.DataGenerator.*;
-import static com.funda.utilities.PlaywrightUtility.getVisibleOption;
-import static com.microsoft.playwright.options.WaitForSelectorState.VISIBLE;
+import static com.funda.utils.PlaywrightUtility.elementIsVisible;
 
 public class ContactFormSteps extends BaseSteps {
-    private final HomePage homePage;
-    private final SearchResultsPage searchResultsPage;
+
     private final PropertyPage propertyPage;
     private final ContactAgentPage contactAgentPage;
+    private final DataGenerator dataGenerator;
 
-    public ContactFormSteps(Page page) {
+    public ContactFormSteps(Page page, DataGenerator dataGenerator) {
         super(page);
-        homePage = new HomePage(page);
-        searchResultsPage = new SearchResultsPage(page);
-        propertyPage = new PropertyPage(page);
-        contactAgentPage = new ContactAgentPage(page);
-    }
-
-    public void navigateToFirstListing() {
-        homePage.getSearchSection().getSubmitSearchButton().click();
-        searchResultsPage.getListing().first().click();
+        this.propertyPage = new PropertyPage(page);
+        this.contactAgentPage = new ContactAgentPage(page);
+        this.dataGenerator = dataGenerator;
     }
 
     public void openContactForm() {
         propertyPage.getContactAgentButton().click();
-        propertyPage.getPage().waitForLoadState(LoadState.LOAD);
+        waitForLoadState();
     }
 
     public void fillAndSubmitContactForm() {
-        contactAgentPage.getQuestionInput().fill(getRandomText());
+        contactAgentPage.getQuestionInput().fill(dataGenerator.getRandomText());
         selectRequestViewing();
-        contactAgentPage.getEmailInput().fill(getEmail());
-        contactAgentPage.getFirstNameInput().fill(getFirstName());
-        contactAgentPage.getLastNameInput().fill(getLastName());
-        contactAgentPage.getPhoneNumberInput().fill(getPhoneNumber());
+        contactAgentPage.getEmailInput().fill(dataGenerator.getEmail());
+        contactAgentPage.getFirstNameInput().fill(dataGenerator.getFirstName());
+        contactAgentPage.getLastNameInput().fill(dataGenerator.getLastName());
+        contactAgentPage.getPhoneNumberInput().fill(dataGenerator.getPhoneNumber());
         //contactAgentPage.getSubmitButton().click(); - commented in order not to affect agents
     }
 
     public void selectRequestViewing() {
+        contactAgentPage.getViewingRequestCheckbox().hover();
         contactAgentPage.getViewingRequestCheckbox().click();
-        contactAgentPage.getMondayOption().waitFor(getVisibleOption());
+        contactAgentPage.getMondayOption().waitFor(elementIsVisible());
         contactAgentPage.getMondayOption().click();
         contactAgentPage.getMorningOption().click();
     }

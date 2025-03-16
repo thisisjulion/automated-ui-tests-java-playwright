@@ -1,29 +1,32 @@
 package com.funda.tests.ui;
 
 
-import com.funda.BaseTest;
 import com.funda.steps.ContactFormSteps;
+import com.funda.steps.SearchFunctionalitySteps;
+import com.funda.utils.DataGenerator;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 public class ContactFormTests extends BaseTest {
-    private ContactFormSteps steps;
+    private ContactFormSteps contactFormSteps;
+    private SearchFunctionalitySteps searchFunctionalitySteps;
 
     @Tag("smoke")
     @Test
     void contactFormSubmissionWorks() {
         //Step 1 - open home page
-        steps = new ContactFormSteps(page);
-        steps.navigateToHomePageAndAcceptCookies();
+        contactFormSteps = new ContactFormSteps(page, new DataGenerator());
+        searchFunctionalitySteps = new SearchFunctionalitySteps(page);
+        contactFormSteps.navigateToHomePageAndAcceptCookies();
 
         //Step 2 - open first listing
-        steps.navigateToFirstListing();
+        searchFunctionalitySteps.navigateToFirstListing();
 
         //Step 3 - open contact form
-        steps.openContactForm();
+        contactFormSteps.openContactForm();
 
         //Step 4 - fill in form and verify success message;
-        steps.fillAndSubmitContactForm();
-        steps.verifySuccessfulMessage();
+        contactFormSteps.fillAndSubmitContactForm();
+        contactFormSteps.verifySuccessfulMessage();
     }
 }

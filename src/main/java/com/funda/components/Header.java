@@ -7,7 +7,6 @@ import lombok.Getter;
 @Getter
 public class Header {
     private static final String BUTTON_LOCATOR = "id=headlessui-menu-button-v-0-%s";
-    private final Page page;
     private final Locator buyButton;
     private final Locator rentButton;
     private final Locator sellButton;
@@ -17,7 +16,6 @@ public class Header {
     private final Locator fundaLabel;
 
     public Header(Page page) {
-        this.page = page;
         this.buyButton = page.locator(BUTTON_LOCATOR.formatted("17"));
         this.rentButton = page.locator(BUTTON_LOCATOR.formatted("23"));
         this.sellButton = page.locator(BUTTON_LOCATOR.formatted("26"));

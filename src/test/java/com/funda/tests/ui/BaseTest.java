@@ -1,5 +1,7 @@
-package com.funda;
+package com.funda.tests.ui;
 
+import com.funda.config.Configuration;
+import com.funda.utils.DataGenerator;
 import com.microsoft.playwright.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -15,6 +17,8 @@ public class BaseTest {
     protected static Browser.NewContextOptions newContextOptions;
     protected static Page page;
 
+    protected DataGenerator dataGenerator;
+
     @BeforeAll
     public static void setup() {
         playwright = Playwright.create();
@@ -27,9 +31,10 @@ public class BaseTest {
     @BeforeEach
     void setupPage() {
         page = context.newPage();
+        dataGenerator = initDataGenerator();
     }
 
-    static Browser initBrowser(Playwright playwright) {
+    protected static Browser initBrowser(Playwright playwright) {
         final Configuration.BrowserOption browserOption = Configuration.getConfigBrowserOption();
         final boolean headless = Configuration.isHeadless();
 
@@ -41,6 +46,10 @@ public class BaseTest {
             case FIREFOX -> playwright.firefox().launch(launchOptions);
             case WEBKIT -> playwright.webkit().launch(launchOptions);
         };
+    }
+
+    protected DataGenerator initDataGenerator() {
+        return new DataGenerator();
     }
 
     @AfterEach

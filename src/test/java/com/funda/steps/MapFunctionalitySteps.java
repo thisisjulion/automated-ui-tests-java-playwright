@@ -4,10 +4,9 @@ import com.funda.pages.MapComponent;
 import com.funda.pages.homepage.HomePage;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Response;
-import com.microsoft.playwright.options.LoadState;
 import org.junit.jupiter.api.Assertions;
 
-import static com.funda.utilities.PlaywrightUtility.getResponse;
+import static com.funda.utils.PlaywrightUtility.getResponse;
 
 public class MapFunctionalitySteps extends BaseSteps {
     private final HomePage homePage;
@@ -15,13 +14,13 @@ public class MapFunctionalitySteps extends BaseSteps {
 
     public MapFunctionalitySteps(Page page) {
         super(page);
-        homePage = new HomePage(page);
-        mapComponent = new MapComponent(page);
+        this.homePage = new HomePage(page);
+        this.mapComponent = new MapComponent(page);
     }
 
     public void clickSearchOnMap() {
         homePage.getSearchSection().getSearchOnMapLink().click();
-        mapComponent.getPage().waitForLoadState(LoadState.LOAD);
+        waitForLoadState();
     }
 
     public void verifyThatMapIsVisible() {

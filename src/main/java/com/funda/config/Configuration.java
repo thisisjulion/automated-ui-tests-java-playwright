@@ -1,4 +1,7 @@
-package com.funda;
+package com.funda.config;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
 
@@ -14,6 +17,16 @@ public class Configuration {
         WEBKIT
     }
 
+    @Getter
+    @RequiredArgsConstructor
+    public enum Environment {
+        PROD("https://www.funda.nl/"),
+        STAGE("tbd"),
+        DEV("tbd");
+
+        private final String url;
+    }
+
     public static BrowserOption getConfigBrowserOption() {
         return Optional.ofNullable(System.getenv(CONFIG_BROWSER_OPTION))
                 .map(String::toUpperCase)
@@ -27,8 +40,10 @@ public class Configuration {
                 .orElse(false);
     }
 
-    public static String getEnvironment() {
-        return System.getenv(CONFIG_TARGET_ENVIRONMENT);
+    public static Environment getEnvironment() {
+        return Optional.ofNullable(System.getenv(CONFIG_TARGET_ENVIRONMENT)).map(String::toUpperCase)
+                .map(Environment::valueOf)
+                .orElse(Environment.PROD);
     }
 
     public static String getUserAgentToken() {

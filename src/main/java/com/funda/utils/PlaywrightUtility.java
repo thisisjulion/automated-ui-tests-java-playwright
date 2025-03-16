@@ -1,4 +1,4 @@
-package com.funda.utilities;
+package com.funda.utils;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
@@ -11,7 +11,7 @@ public class PlaywrightUtility {
         return new Page.GetByRoleOptions().setName(name);
     }
 
-    public static Locator.WaitForOptions getVisibleOption() {
+    public static Locator.WaitForOptions elementIsVisible() {
         return new Locator.WaitForOptions().setState(VISIBLE);
     }
 
