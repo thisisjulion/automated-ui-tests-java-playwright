@@ -39,10 +39,6 @@ dependencies {
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
     testRuntimeOnly "org.junit.platform:junit-platform-suite-engine"
 
-    // Logging
-    testImplementation "org.slf4j:slf4j-api:${slf4jVersion}"
-    testRuntimeOnly "ch.qos.logback:logback-classic:${logbackVersion}"
-
     // -- Test - Integration
     testImplementation "io.rest-assured:rest-assured:${restAssuredVersion}"
 }
