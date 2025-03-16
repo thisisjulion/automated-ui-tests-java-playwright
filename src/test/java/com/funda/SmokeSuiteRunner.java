@@ -9,5 +9,4 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SelectPackages("com.funda.tests.ui")
 @IncludeTags("smoke")
 @SuiteDisplayName("Smoke Test Suite")
-public class SmokeSuiteRunner {
-}
+public class SmokeSuiteRunner {}
