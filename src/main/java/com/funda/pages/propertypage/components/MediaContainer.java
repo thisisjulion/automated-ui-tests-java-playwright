@@ -6,11 +6,11 @@ import lombok.Getter;
 
 @Getter
 public class MediaContainer {
-    private final Locator mediaSection;
-    private final Locator firstImage;
+  private final Locator mediaSection;
+  private final Locator firstImage;
 
-    public MediaContainer(Page page) {
-        this.mediaSection = page.locator("#media");
-        this.firstImage = mediaSection.locator("img").first();
-    }
+  public MediaContainer(Page page) {
+    this.mediaSection = page.locator("#media");
+    this.firstImage = mediaSection.locator("img").first();
+  }
 }
