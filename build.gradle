@@ -1,24 +1,84 @@
 plugins {
-    id 'java'
-    id "io.freefair.lombok" version "8.12.1"
+    id "java"
+    id "io.freefair.lombok" version "${lombokPluginVersion}"
+    id "org.gradle.test-retry" version "${gradleTestRetryVersion}"
+    id "io.qameta.allure" version "${allurePluginVersion}"
 }
 
-group = 'org.example'
+group = 'com.funda'
 version = '1.0-SNAPSHOT'
+
+configurations {
+    agent {
+        canBeResolved = true
+        canBeConsumed = true
+    }
+}
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testRuntimeOnly "org.junit.platform:junit-platform-suite-engine"
+    agent "org.aspectj:aspectjweaver:$aspectJVersion"
+
+    implementation "net.datafaker:datafaker:${datafakerVersion}"
+    implementation "com.microsoft.playwright:playwright:${playwrightVersion}"
+
+    // Test Dependencies:
+    testImplementation enforcedPlatform("org.junit:junit-bom:${junitVersion}")
+    testImplementation enforcedPlatform("io.qameta.allure:allure-bom:${allureVersion}")
+
+    // -- Test - Base
+    testImplementation "io.qameta.allure:allure-junit5"
+    testImplementation "org.junit.jupiter:junit-jupiter"
+    testImplementation "org.junit.jupiter:junit-jupiter-api"
     testImplementation "org.junit.platform:junit-platform-suite-api"
-    implementation 'com.microsoft.playwright:playwright:1.44.0'
-    implementation "net.datafaker:datafaker:2.4.2"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testRuntimeOnly "org.junit.platform:junit-platform-suite-engine"
+
+    // Logging
+    testImplementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    testRuntimeOnly "ch.qos.logback:logback-classic:${logbackVersion}"
+
+    // -- Test - Integration
+    testImplementation "io.rest-assured:rest-assured:${restAssuredVersion}"
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+compileTestJava {
+    options.encoding = "UTF-8"
 }
 
 test {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        if (System.getProperty('includeTags')) {
+            includeTags System.getProperty('includeTags').split(',')
+        }
+
+        if (System.getProperty('excludeTags')) {
+            excludeTags System.getProperty('excludeTags').split(',')
+        }
+    }
+
+    jvmArgs = [ "-javaagent:${configurations.agent.singleFile}" ]
+}
+
+tasks.withType(Test) {
+    retry {
+        maxRetries = 2
+        failOnPassedAfterRetry = false
+    }
+}
+
+allure {
+    report {
+        dependsOnTests.set(false)
+    }
 }
