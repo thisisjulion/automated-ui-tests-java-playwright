@@ -6,6 +6,7 @@ import com.funda.config.Configuration;
 import com.funda.steps.HomePageSteps;
 import com.microsoft.playwright.APIRequestContext;
 import com.microsoft.playwright.APIResponse;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +14,7 @@ public class HomePageTests extends BaseTest {
   private HomePageSteps homePageSteps;
 
   @Tag("smoke")
+  @DisplayName("Home Page loads successfully")
   @Test
   void homePageLoadsSuccessfully() {
     // Step 1 - verify that funda.nl returns 200 OK

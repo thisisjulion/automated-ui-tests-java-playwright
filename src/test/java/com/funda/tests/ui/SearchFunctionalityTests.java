@@ -1,6 +1,7 @@
 package com.funda.tests.ui;
 
 import com.funda.steps.SearchFunctionalitySteps;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -8,6 +9,7 @@ public class SearchFunctionalityTests extends BaseTest {
   private SearchFunctionalitySteps searchFunctionalitySteps;
 
   @Tag("smoke")
+  @DisplayName("Search functionality works")
   @Test
   public void searchFunctionalityWorks() {
     // Step 1 - Open home page and perform a property search (e.g., “Amsterdam”).

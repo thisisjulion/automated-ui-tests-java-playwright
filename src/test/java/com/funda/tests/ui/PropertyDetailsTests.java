@@ -2,6 +2,7 @@ package com.funda.tests.ui;
 
 import com.funda.steps.PropertyDetailsSteps;
 import com.funda.steps.SearchFunctionalitySteps;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +11,7 @@ public class PropertyDetailsTests extends BaseTest {
   private SearchFunctionalitySteps searchFunctionalitySteps;
 
   @Tag("smoke")
+  @DisplayName("Property details page opens")
   @Test
   void propertyDetailsPageOpens() {
     // Step 1 - Open home page and perform a property search

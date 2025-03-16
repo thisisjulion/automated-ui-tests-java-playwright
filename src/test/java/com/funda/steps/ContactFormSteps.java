@@ -6,6 +6,7 @@ import com.funda.pages.ContactAgentPage;
 import com.funda.pages.propertypage.PropertyPage;
 import com.funda.utils.DataGenerator;
 import com.microsoft.playwright.Page;
+import io.qameta.allure.Step;
 
 public class ContactFormSteps extends BaseSteps {
 
@@ -20,11 +21,13 @@ public class ContactFormSteps extends BaseSteps {
     this.dataGenerator = dataGenerator;
   }
 
+  @Step("Open contact form")
   public void openContactForm() {
     propertyPage.getContactAgentButton().click();
     waitForLoadState();
   }
 
+  @Step("Fill in and submit contact form")
   public void fillAndSubmitContactForm() {
     contactAgentPage.getQuestionInput().fill(dataGenerator.getRandomText());
     selectRequestViewing();
@@ -35,6 +38,7 @@ public class ContactFormSteps extends BaseSteps {
     // contactAgentPage.getSubmitButton().click(); - commented in order not to affect agents
   }
 
+  @Step("Select 'Request viewing' checkbox")
   public void selectRequestViewing() {
     contactAgentPage.getViewingRequestCheckbox().hover();
     contactAgentPage.getViewingRequestCheckbox().click();

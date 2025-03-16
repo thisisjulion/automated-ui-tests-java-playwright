@@ -6,6 +6,7 @@ import com.funda.pages.MapComponent;
 import com.funda.pages.homepage.HomePage;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Response;
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 
 public class MapFunctionalitySteps extends BaseSteps {
@@ -18,15 +19,18 @@ public class MapFunctionalitySteps extends BaseSteps {
     this.mapComponent = new MapComponent(page);
   }
 
+  @Step("Click 'Search' on map")
   public void clickSearchOnMap() {
     homePage.getSearchSection().getSearchOnMapLink().click();
     waitForLoadState();
   }
 
+  @Step("Verify that map is visible")
   public void verifyThatMapIsVisible() {
     verification.verifyThatElementIsVisible(mapComponent.getMap());
   }
 
+  @Step("Zoom in and track google api response")
   public Response zoomInOutAndGetApiResponse(String url) {
     return getResponse(
         url,
@@ -37,6 +41,7 @@ public class MapFunctionalitySteps extends BaseSteps {
         });
   }
 
+  @Step("Drag map and reactive search api response")
   public Response dragMapAndGetApiResponse(String url) {
     return getResponse(
         url,
@@ -47,6 +52,7 @@ public class MapFunctionalitySteps extends BaseSteps {
         });
   }
 
+  @Step("Verify that api is triggered")
   public void verifyThatApiIsTriggered(
       Response apiResponse, String expectedUrl, String actionName) {
     Assertions.assertTrue(

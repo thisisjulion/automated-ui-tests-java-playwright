@@ -2,6 +2,7 @@ package com.funda.steps;
 
 import com.funda.pages.homepage.HomePage;
 import com.microsoft.playwright.Page;
+import io.qameta.allure.Step;
 
 public class HomePageSteps extends BaseSteps {
   private final HomePage homePage;
@@ -11,6 +12,7 @@ public class HomePageSteps extends BaseSteps {
     this.homePage = new HomePage(page);
   }
 
+  @Step("Verify that all header elements are displayed")
   public void verifyThatHeaderElementsAreDisplayed() {
     verification.verifyThatElementIsVisible(homePage.getHeader().getFundaLabel());
     verification.verifyThatElementIsVisible(homePage.getHeader().getBuyButton());
@@ -21,6 +23,7 @@ public class HomePageSteps extends BaseSteps {
     verification.verifyThatElementIsVisible(homePage.getHeader().getLoginButton());
   }
 
+  @Step("Verify that search section is displayed")
   public void verifyThatSearchSectionIsDisplayed() {
     verification.verifyThatElementIsVisible(homePage.getSearchSection().getSearchBar());
     verification.verifyThatElementIsVisible(homePage.getSearchSection().getSubmitSearchButton());
@@ -33,6 +36,7 @@ public class HomePageSteps extends BaseSteps {
     verification.verifyThatElementIsVisible(homePage.getSearchSection().getEuropeButton());
   }
 
+  @Step("Verify that 'NVM Agent' and 'Find Commercial property' buttons are displayed")
   public void verifyThatCenterSectionButtonsAreDisplayed() {
     verification.verifyThatElementIsVisible(homePage.getFindAnNvmAgentButton());
     verification.verifyThatElementIsEnabled(homePage.getFindAnNvmAgentButton());

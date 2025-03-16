@@ -5,6 +5,7 @@ import com.funda.config.Configuration;
 import com.microsoft.playwright.Mouse;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.LoadState;
+import io.qameta.allure.Step;
 
 public class BaseSteps {
   private static final double START_POINT_X = 500;
@@ -18,6 +19,7 @@ public class BaseSteps {
     this.page = page;
   }
 
+  @Step("Navigate to home page and accept cookies")
   public void navigateToHomePageAndAcceptCookies() {
     navigateToHomePage();
     acceptCookies();
@@ -33,19 +35,23 @@ public class BaseSteps {
     cookiesPopUp.acceptCookies();
   }
 
+  @Step("Zoom in")
   public void zoomIn() {
     page.mouse().wheel(0, -500);
   }
 
+  @Step("Zoom out")
   public void zoomOut() {
     page.mouse().wheel(0, 500);
   }
 
+  @Step("Drag page")
   public void dragPage() {
     page.mouse().move(START_POINT_X, START_POINT_Y);
     page.mouse().down();
   }
 
+  @Step("Move page")
   public void movePage() {
     page.mouse()
         .move(

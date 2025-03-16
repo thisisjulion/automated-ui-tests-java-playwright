@@ -3,6 +3,7 @@ package com.funda.tests.ui;
 import com.funda.steps.ContactFormSteps;
 import com.funda.steps.SearchFunctionalitySteps;
 import com.funda.utils.DataGenerator;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +12,7 @@ public class ContactFormTests extends BaseTest {
   private SearchFunctionalitySteps searchFunctionalitySteps;
 
   @Tag("smoke")
+  @DisplayName("Contact Form submission works")
   @Test
   void contactFormSubmissionWorks() {
     // Step 1 - open home page
