@@ -8,7 +8,7 @@ public class HomePageSteps extends BaseSteps {
 
     public HomePageSteps(Page page) {
         super(page);
-        homePage = new HomePage(page);
+        this.homePage = new HomePage(page);
     }
 
     public void verifyThatHeaderElementsAreDisplayed() {

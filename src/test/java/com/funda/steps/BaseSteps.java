@@ -1,17 +1,16 @@
 package com.funda.steps;
 
+import com.funda.config.Configuration;
 import com.funda.components.CookiesPopUp;
 import com.microsoft.playwright.Mouse;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.LoadState;
 
-import static com.funda.Constants.HOME_PAGE;
-
 public class BaseSteps {
-    private double startX = 500;
-    private double startY = 300;
-    private double deltaX = 100;
-    private double deltaY = 0;
+    private static final double START_POINT_X = 500;
+    private static final double START_POINT_Y = 300;
+    private static final double DELTA_X = 100;
+    private static final double DELTA_Y = 0;
     protected final Page page;
     protected final VerificationSteps verification = new VerificationSteps();
 
@@ -26,7 +25,7 @@ public class BaseSteps {
     }
 
     public void navigateToHomePage() {
-        page.navigate(HOME_PAGE.getUrl());
+        page.navigate(Configuration.getEnvironment().getUrl());
     }
 
     public void acceptCookies() {
@@ -43,12 +42,17 @@ public class BaseSteps {
     }
 
     public void dragPage() {
-        page.mouse().move(startX, startY);
+        page.mouse().move(START_POINT_X, START_POINT_Y);
         page.mouse().down();
     }
 
     public void movePage() {
-        page.mouse().move(startX + deltaX, startY + deltaY, new Mouse.MoveOptions().setSteps(10));
+        page.mouse().move(START_POINT_X + DELTA_X, START_POINT_Y + DELTA_Y,
+                new Mouse.MoveOptions().setSteps(10));
         page.mouse().up();
+    }
+
+    public void waitForLoadState() {
+        page.waitForLoadState(LoadState.LOAD);
     }
 }

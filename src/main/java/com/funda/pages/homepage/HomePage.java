@@ -8,18 +8,16 @@ import lombok.Getter;
 
 @Getter
 public class HomePage {
-    private final Page page;
     private final Header header;
     private final SearchSection searchSection;
     private final Locator findAnNvmAgentButton;
     private final Locator findCommercialPropertyButton;
 
     public HomePage(Page page) {
-        this.page = page;
         this.header = new Header(page);
         this.searchSection = new SearchSection(page);
-        findAnNvmAgentButton = page.locator("css=a[href*='/makelaar-zoeken'] span");
-        findCommercialPropertyButton = page.locator("css=a[href='https://www.fundainbusiness.nl']");
+        this.findAnNvmAgentButton = page.locator("css=a[href*='/makelaar-zoeken'] span");
+        this.findCommercialPropertyButton = page.locator("css=a[href='https://www.fundainbusiness.nl']");
     }
 
     public void searchFor(String value) {

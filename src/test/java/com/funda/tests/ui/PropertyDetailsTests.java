@@ -1,30 +1,30 @@
 package com.funda.tests.ui;
 
-import com.funda.BaseTest;
 import com.funda.steps.PropertyDetailsSteps;
+import com.funda.steps.SearchFunctionalitySteps;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static com.funda.utilities.DataGenerator.getRandomDutchCity;
-
 public class PropertyDetailsTests extends BaseTest {
-    private PropertyDetailsSteps steps;
+    private PropertyDetailsSteps propertyDetailsSteps;
+    private SearchFunctionalitySteps searchFunctionalitySteps;
 
     @Tag("smoke")
     @Test
     void propertyDetailsPageOpens() {
         //Step 1 - Open home page and perform a property search
-        steps = new PropertyDetailsSteps(page);
-        steps.navigateToHomePageAndAcceptCookies();
+        propertyDetailsSteps = new PropertyDetailsSteps(page);
+        searchFunctionalitySteps = new SearchFunctionalitySteps(page);
+        propertyDetailsSteps.navigateToHomePageAndAcceptCookies();
 
         //Step 2 - Search and select the first listing
-        steps.searchBy(getRandomDutchCity());
-        steps.selectFirstListing();
+        searchFunctionalitySteps.searchBy(dataGenerator.getRandomDutchCity());
+        searchFunctionalitySteps.selectFirstListing();
 
         //Step 3 - Ensure that key property details are displayed (title, price, images, description).
-        steps.verifyThatAboutSectionIsDisplayed();
-        steps.verifyPriceLabel();
-        steps.verifyThatMediaSectionIsDisplayed();
-        steps.verifyThatContactAgentSectionIsDisplayed();
+        propertyDetailsSteps.verifyThatAboutSectionIsDisplayed();
+        propertyDetailsSteps.verifyPriceLabel();
+        propertyDetailsSteps.verifyThatMediaSectionIsDisplayed();
+        propertyDetailsSteps.verifyThatContactAgentSectionIsDisplayed();
     }
 }

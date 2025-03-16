@@ -1,17 +1,16 @@
 package com.funda.tests.ui;
 
-import com.funda.BaseTest;
+import com.funda.config.Configuration;
 import com.funda.steps.HomePageSteps;
 import com.microsoft.playwright.APIRequestContext;
 import com.microsoft.playwright.APIResponse;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static com.funda.Constants.HOME_PAGE;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 public class HomePageTests extends BaseTest {
-    private HomePageSteps steps;
+    private HomePageSteps homePageSteps;
 
     @Tag("smoke")
     @Test
@@ -20,18 +19,18 @@ public class HomePageTests extends BaseTest {
         verifyThatHomePageUrlReturns200oK();
 
         //Step 2 - - open home page
-        steps = new HomePageSteps(page);
-        steps.navigateToHomePageAndAcceptCookies();
+        homePageSteps = new HomePageSteps(page);
+        homePageSteps.navigateToHomePageAndAcceptCookies();
 
         //Step 3 - verify main elements on Home Page
-        steps.verifyThatHeaderElementsAreDisplayed();
-        steps.verifyThatSearchSectionIsDisplayed();
-        steps.verifyThatCenterSectionButtonsAreDisplayed();
+        homePageSteps.verifyThatHeaderElementsAreDisplayed();
+        homePageSteps.verifyThatSearchSectionIsDisplayed();
+        homePageSteps.verifyThatCenterSectionButtonsAreDisplayed();
     }
 
     private void verifyThatHomePageUrlReturns200oK() {
         APIRequestContext request = playwright.request().newContext();
-        APIResponse response = request.get(HOME_PAGE.getUrl());
+        APIResponse response = request.get(Configuration.getEnvironment().getUrl());
         assertThat(response).isOK();
     }
 }
