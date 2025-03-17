@@ -13,20 +13,20 @@ public class Configuration {
   public static BrowserOption getConfigBrowserOption() {
     return Optional.ofNullable(System.getenv(CONFIG_BROWSER_OPTION))
         .map(String::toUpperCase)
-        .map(BrowserOption::valueOf)
+        .map(BrowserOption::valueOfOrNull)
         .orElse(BrowserOption.CHROMIUM);
   }
 
   public static Boolean isHeadless() {
     return Optional.ofNullable(System.getenv(CONFIG_HEADLESS))
         .map(Boolean::parseBoolean)
-        .orElse(false);
+        .orElse(true);
   }
 
   public static Environment getEnvironment() {
     return Optional.ofNullable(System.getenv(CONFIG_TARGET_ENVIRONMENT))
         .map(String::toUpperCase)
-        .map(Environment::valueOf)
+        .map(Environment::valueOfOrNull)
         .orElse(Environment.PROD);
   }
 
@@ -37,7 +37,19 @@ public class Configuration {
   public enum BrowserOption {
     CHROMIUM,
     FIREFOX,
-    WEBKIT
+    WEBKIT;
+
+    public static BrowserOption valueOfOrNull(String name) {
+      BrowserOption option = null;
+
+      try {
+        option = BrowserOption.valueOf(name);
+      } catch (IllegalArgumentException e) {
+        System.out.printf("Invalid option supplied: %s%n", name); // TODO: add logging
+      }
+
+      return option;
+    }
   }
 
   @Getter
@@ -48,5 +60,17 @@ public class Configuration {
     DEV("tbd");
 
     private final String url;
+
+    public static Environment valueOfOrNull(String name) {
+      Environment environment = null;
+
+      try {
+        environment = Environment.valueOf(name);
+      } catch (IllegalArgumentException e) {
+        System.out.printf("Invalid environment supplied: %s%n", name); // TODO: add logging
+      }
+
+      return environment;
+    }
   }
 }

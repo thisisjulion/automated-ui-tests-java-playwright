@@ -1,4 +1,4 @@
-package com.funda.tests.ui;
+package com.funda.tests;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
