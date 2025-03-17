@@ -7,7 +7,6 @@ import io.qameta.allure.Attachment;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 import org.junit.jupiter.api.*;
 
 public class BaseTest {
@@ -26,7 +25,7 @@ public class BaseTest {
     newContextOptions =
         new Browser.NewContextOptions()
             .setUserAgent(Configuration.getUserAgentToken())
-            .setViewportSize(null)
+            .setViewportSize(1366, 768)
             .setRecordVideoDir(Path.of("test-results/videos"));
     context = browser.newContext(newContextOptions);
   }
@@ -35,8 +34,7 @@ public class BaseTest {
     final Configuration.BrowserOption browserOption = Configuration.getConfigBrowserOption();
     final boolean headless = Configuration.isHeadless();
 
-    BrowserType.LaunchOptions launchOptions =
-        new BrowserType.LaunchOptions().setHeadless(headless).setArgs(List.of("--start-maximized"));
+    BrowserType.LaunchOptions launchOptions = new BrowserType.LaunchOptions().setHeadless(headless);
 
     return switch (browserOption) {
       case CHROMIUM -> playwright.chromium().launch(launchOptions);
