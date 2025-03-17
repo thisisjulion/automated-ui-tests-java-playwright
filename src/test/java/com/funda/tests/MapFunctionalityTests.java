@@ -1,4 +1,4 @@
-package com.funda.tests.ui;
+package com.funda.tests;
 
 import com.funda.steps.MapFunctionalitySteps;
 import com.microsoft.playwright.Response;

@@ -1,4 +1,4 @@
-package com.funda.tests.ui;
+package com.funda.tests;
 
 import com.funda.steps.PropertyDetailsSteps;
 import com.funda.steps.SearchFunctionalitySteps;
