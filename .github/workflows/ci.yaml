@@ -21,7 +21,7 @@ on:
       environment:
         description: 'Select environment'
         required: true
-        default: 'staging'
+        default: 'prod'
         type: choice
         options:
           - dev
@@ -47,6 +47,7 @@ jobs:
       TARGET_ENVIRONMENT: ${{ github.event.inputs.environment }}
       TEST_SUITE: ${{ github.event.inputs.test_suite }}
       USER_BYPASS_CHECK_TOKEN: ${{ secrets.USER_BYPASS_CHECK_TOKEN }}
+      PLR_HEADLESS: true
 
     steps:
       - name: Checkout Repository
