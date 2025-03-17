@@ -65,6 +65,13 @@ jobs:
           ./gradlew clean test \
             -DincludeTags=${{ env.TEST_SUITE }}
 
+      - name: Upload Playwright Artifacts (Screenshots & Videos)
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-artifacts
+          path: test-results/
+
       - name: Upload Allure Results
         uses: actions/upload-artifact@v4
         if: always()
@@ -79,6 +86,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Download Playwright Artifacts (Screenshots & Videos)
+        uses: actions/download-artifact@v4
+        with:
+          name: playwright-artifacts
+          path: test-results/
+
       - name: Download Allure Results
         uses: actions/download-artifact@v4
         with:

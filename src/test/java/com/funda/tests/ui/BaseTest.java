@@ -3,11 +3,12 @@ package com.funda.tests.ui;
 import com.funda.config.Configuration;
 import com.funda.utils.DataGenerator;
 import com.microsoft.playwright.*;
+import io.qameta.allure.Attachment;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
 
 public class BaseTest {
   protected static Playwright playwright;
@@ -25,7 +26,8 @@ public class BaseTest {
     newContextOptions =
         new Browser.NewContextOptions()
             .setUserAgent(Configuration.getUserAgentToken())
-            .setViewportSize(null);
+            .setViewportSize(null)
+            .setRecordVideoDir(Path.of("test-results/videos"));
     context = browser.newContext(newContextOptions);
   }
 
@@ -61,7 +63,31 @@ public class BaseTest {
   }
 
   @AfterEach
-  void cleanupPage() {
-    page.close();
+  void cleanupPage(TestInfo testInfo) {
+    try {
+      if (testInfo.getTags().contains("failed")) {
+        attachScreenshot();
+        attachVideo();
+      }
+    } catch (IOException e) {
+      System.err.println("Failed to save screenshot or video: " + e.getMessage());
+    } finally {
+      context.close();
+      browser.close();
+      playwright.close();
+    }
+  }
+
+  @Attachment(value = "Screenshot", type = "image/png")
+  public byte[] attachScreenshot() throws IOException {
+    Path screenshotPath = Path.of("test-results/screenshots/failure.png");
+    page.screenshot(new Page.ScreenshotOptions().setPath(screenshotPath));
+    return Files.readAllBytes(screenshotPath);
+  }
+
+  @Attachment(value = "Video", type = "video/mp4")
+  public byte[] attachVideo() throws IOException {
+    Path videoPath = page.video().path();
+    return Files.exists(videoPath) ? Files.readAllBytes(videoPath) : new byte[0];
   }
 }
