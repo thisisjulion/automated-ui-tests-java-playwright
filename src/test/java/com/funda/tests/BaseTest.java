@@ -28,7 +28,6 @@ public class BaseTest {
             .setUserAgent(Configuration.getUserAgentToken())
             .setViewportSize(1366, 768)
             .setRecordVideoDir(Path.of("test-results/videos"));
-    context = browser.newContext(newContextOptions);
   }
 
   protected static Browser initBrowser(Playwright playwright) {
