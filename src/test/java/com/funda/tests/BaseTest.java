@@ -4,10 +4,11 @@ import com.funda.config.Configuration;
 import com.funda.utils.DataGenerator;
 import com.microsoft.playwright.*;
 import io.qameta.allure.Attachment;
+import org.junit.jupiter.api.*;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import org.junit.jupiter.api.*;
 
 public class BaseTest {
   protected static Playwright playwright;
@@ -27,7 +28,6 @@ public class BaseTest {
             .setUserAgent(Configuration.getUserAgentToken())
             .setViewportSize(1366, 768)
             .setRecordVideoDir(Path.of("test-results/videos"));
-    context = browser.newContext(newContextOptions);
   }
 
   protected static Browser initBrowser(Playwright playwright) {
@@ -46,12 +46,14 @@ public class BaseTest {
   @AfterAll
   public static void tearDown() {
     if (playwright != null) {
+      browser.close();
       playwright.close();
     }
   }
 
   @BeforeEach
   void setupPage() {
+    context = browser.newContext(newContextOptions);
     page = context.newPage();
     dataGenerator = initDataGenerator();
   }
@@ -71,8 +73,6 @@ public class BaseTest {
       System.err.println("Failed to save screenshot or video: " + e.getMessage());
     } finally {
       context.close();
-      browser.close();
-      playwright.close();
     }
   }
 
